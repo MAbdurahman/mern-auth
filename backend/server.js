@@ -8,7 +8,8 @@ import morgan from 'morgan';
 import connectDatabase from './config/configDatabase.js';
 import Template from "./template.js";
 
-import userRouter from "./routes/userRoute.js";
+import userRoutes from "./routes/userRoute.js";
+import authRoutes from "./routes/authRoute.js";
 
 //**************** configuration setup ****************//
 dotenv.config({path: 'backend/config/config.env'});
@@ -30,7 +31,6 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 app.use(express.json());
 app.use(cookieParser());
 
-
 //**************** app listening ****************//
 const server = app.listen(PORT, () => {
     console.log(`The server is listening at - http://127.0.0.1:${PORT}${API_URL} in ${NODE_ENV} mode🔥`.yellow);
@@ -41,8 +41,8 @@ app.get('/api/v1.0/', (req, res) => {
     res.send(Template());
 });
 
-app.use('/api/v1.0/user', userRouter);
-
+app.use('/api/v1.0/user', userRoutes);
+app.use('/api/v1.0/auth', authRoutes);
 
 //**************** handle errors middleware ****************//
 app.use((err, req, res, next) => {
