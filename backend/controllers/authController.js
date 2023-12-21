@@ -5,12 +5,12 @@ import User from "../models/userModel.js";
 
 export const signUp = async (req, res, next) => {
    const { username, email, password } = req.body;
-   if (username) {
+   /*if (username) {
       return next(errorHandler('409', 'Username already exists!'));
    }
    if (email) {
       return next(errorHandler('409', 'Email already exists!'));
-   }
+   }*/
    const hashedPassword = bcryptjs.hashSync(password, 10);
    const newUser = new User({ username, email, password: hashedPassword });
 
