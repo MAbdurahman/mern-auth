@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signInSuccess } from "../redux/user/userSlice.js";
 
-export function OAuth() {
+export default function OAuth() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    async function handleClick() {
