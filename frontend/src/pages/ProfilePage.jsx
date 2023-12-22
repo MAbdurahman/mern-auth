@@ -1,5 +1,12 @@
-import { useRef, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useRef, useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+   getDownloadURL,
+   getStorage,
+   ref,
+   uploadBytesResumable,
+} from 'firebase/storage';
+import { app } from '../firebase';
 
 export default function ProfilePage() {
    const fileRef = useRef(null);
@@ -9,8 +16,26 @@ export default function ProfilePage() {
    const [formData, setFormData] = useState({});
    const [updateSuccess, setUpdateSuccess] = useState(false);
 
-   const { currentUser, loading, error } = useSelector((state) => state.user);
+   const {currentUser, loading, error} = useSelector((state) => state.user);
    const dispatch = useDispatch();
+
+   async function handleFileUpload(image) {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + image.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+
+      uploadTask.on('state_changed', (snapshot) => {
+         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+         setImagePercent(Math.round(progress));
+      }, (error) => {
+         setImageError(true);
+      }, () => {
+         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => setFormData({
+            ...formData, profilePicture: downloadURL
+         }));
+      });
+   }
 
    function handleChange(e) {
 
@@ -28,9 +53,15 @@ export default function ProfilePage() {
 
    }
 
+   useEffect(() => {
+      if (image) {
+         handleFileUpload(image);
+      }
+   }, [image]);
+
    return (
       <div className='p-3 max-w-lg mx-auto'>
-         <h2 className='text-3xl font-semibold text-center my-7'>Profile</h2>
+         <h2 className='text-3xl font-semibold text-center my-7'>{currentUser.username} Profile</h2>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <input
                type='file'
@@ -40,11 +71,11 @@ export default function ProfilePage() {
                onChange={(e) => setImage(e.target.files[0])}
             />
             {/*
-      firebase storage rules:
-      allow read;
-      allow write: if
-      request.resource.size < 2 * 1024 * 1024 &&
-      request.resource.contentType.matches('image/.*') */}
+            firebase storage rules:
+            allow read;
+            allow write: if
+            request.resource.size < 2 * 1024 * 1024 &&
+            request.resource.contentType.matches('image/.*') */}
             <img
                src={formData.profilePicture || currentUser.profilePicture}
                alt='profile'
@@ -92,15 +123,17 @@ export default function ProfilePage() {
             </button>
          </form>
          <div className='flex justify-between mt-5'>
-        <span
-           onClick={handleDeleteUser}
-           className='text-red-700 cursor-pointer'
-        >
-          Delete Account
-        </span>
-            <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
-          Sign out
-        </span>
+            <span
+               onClick={handleDeleteUser}
+               className='text-red-700 font-bold cursor-pointer'
+            >
+               Delete Account
+            </span>
+            <span onClick={handleSignOut}
+                  className='text-yellow-600 font-bold cursor-pointer'
+            >
+               Sign out
+            </span>
          </div>
          <p className='text-red-700 mt-5'>{error ? error.message || 'Internal Server Error!' : ''}</p>
          <p className='text-green-700 mt-5'>
