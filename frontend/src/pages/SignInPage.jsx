@@ -1,22 +1,23 @@
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import {signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice.js";
+import {useDispatch, useSelector} from 'react-redux';
 
 export function SignInPage() {
    const [formData, setFormData] = useState({});
-   const [error, setError] = useState(null);
-   const [loading, setLoading] = useState(false);
+   const { loading, error } = useSelector((state) => state.user);
+
    const navigate = useNavigate();
+   const dispatch = useDispatch()
 
    function handleChange(e) {
       setFormData({...formData, [e.target.id]: e.target.value});
    }
-
    async function handleSubmit(e) {
       e.preventDefault();
 
       try {
-         setLoading(true);
-         setError(false);
+         dispatch(signInStart());
 
          const res = await fetch('/api/v1.0/auth/sign-in', {
             method: 'POST',
@@ -27,23 +28,17 @@ export function SignInPage() {
          });
          const data = await res.json();
 
-         setLoading(false);
          if (data.success === false) {
-            setError(true);
-            setTimeout(()=> {
-               setError(null);
-            }, 3000)
+            dispatch(signInFailure(data.message));
             return;
          }
+
+         dispatch(signInSuccess(data))
          navigate('/');
 
       } catch (error) {
-         setLoading(false);
-         setError(true);
+         dispatch(signInFailure(error));
 
-         setTimeout(() => {
-            setError(null);
-         }, 3000);
       }
    }
 
@@ -81,7 +76,7 @@ export function SignInPage() {
                <span className='text-blue-500'>Sign up</span>
             </Link>
          </div>
-         <p className='text-red-700 mt-5'>{error && 'Internal Server Error!'}</p>
+         <p className='text-red-700 mt-5'>{error ? error.message || 'Internal Server Error!' : ''}</p>
       </div>
    );
 }

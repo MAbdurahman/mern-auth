@@ -2,11 +2,11 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorHandler } from "../utils/errorHandler.js";
 import User from "../models/userModel.js";
+import e from "express";
 
 export const signUp = async (req, res, next) => {
    const { username, email, password } = req.body;
    if (!username) {
-      /*return next(errorHandler('409', 'Username already exists!'));*/
       return next(errorHandler(400, 'Please enter a username!'));
    }
    if (!email) {
@@ -15,6 +15,17 @@ export const signUp = async (req, res, next) => {
    if (!password) {
       return next(errorHandler(400, 'Please enter a password!'));
    }
+
+   const existingEmail = await User.findOne({email });
+   if (existingEmail) {
+      return  next(errorHandler(400, 'Email already exists!'));
+   }
+
+   const existingUserName = await User.findOne({username});
+   if (existingUserName) {
+      return next(errorHandler(400, 'Username already exists!'));
+   }
+
    const hashedPassword = bcryptjs.hashSync(password, 10);
    const newUser = new User({ username, email, password: hashedPassword });
 
@@ -24,7 +35,6 @@ export const signUp = async (req, res, next) => {
    } catch (error) {
       next(error);
    }
-
 };
 
 export const signIn = async (req, res, next) => {
