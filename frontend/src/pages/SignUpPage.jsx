@@ -34,7 +34,7 @@ export default function SignUpPage() {
             setError(true);
             setTimeout(()=> {
                setError(null);
-            }, 3000)
+            }, 5000)
             return;
          }
          navigate('/sign-in');
@@ -45,7 +45,7 @@ export default function SignUpPage() {
 
          setTimeout(() => {
             setError(null);
-         }, 3000);
+         }, 5000);
       }
    }
 
@@ -92,7 +92,7 @@ export default function SignUpPage() {
                <span className='text-blue-500 font-bold'>Sign in</span>
             </Link>
          </div>
-         <p className='text-red-700 mt-5'>{error && 'Internal Server Error!'}</p>
+         <p className='text-red-700 mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
       </div>
    );
 }

@@ -42,7 +42,21 @@ export const updateUser = async (req, res, next) => {
       res.status(200).json(rest);
 
    } catch (err) {
-      /*next(errorHandler('500', `Update user unsuccessful! - ${err}`));*/
       next(err);
    }
+}
+
+export const deleteUser = async (req, res, next) => {
+   if (req.user.id !== req.params.id) {
+      return next(errorHandler('401', 'User Authorization Denied!'));
+   }
+   try {
+      await User.findByIdAndDelete(req.params.id);
+      res.clearCookie('access_token');
+      res.status(200).json('User Successfully Deleted!');
+
+   } catch (err) {
+      next(err)
+   }
+
 }

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice.js";
+import {signInFailure, signInStart, signInSuccess, clearError } from "../redux/user/userSlice.js";
 import {useDispatch, useSelector} from 'react-redux';
 import OAuthButton from "../components/OAuthButton.jsx";
 
@@ -32,13 +32,17 @@ export default function SignInPage() {
          if (data.success === false) {
             dispatch(signInFailure(data.message));
             return;
+            setTimeout(()=> {
+               dispatch(clearError());
+               return;
+            }, 5000);
          }
 
          dispatch(signInSuccess(data))
          navigate('/');
 
-      } catch (error) {
-         dispatch(signInFailure(error));
+      } catch (err) {
+         dispatch(signInFailure(err.message));
 
       }
    }
@@ -78,7 +82,7 @@ export default function SignInPage() {
                <span className='text-blue-500 font-bold'>Sign up</span>
             </Link>
          </div>
-         <p className='text-red-700 mt-5'>{error ? error.message || 'Internal Server Error!' : ''}</p>
+         <p className='text-red-700 mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
       </div>
    );
 }

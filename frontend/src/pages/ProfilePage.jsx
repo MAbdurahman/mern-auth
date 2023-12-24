@@ -10,7 +10,10 @@ import {app} from '../firebase';
 import {
    updateUserStart,
    updateUserSuccess,
-   updateUserFailure
+   updateUserFailure,
+   deleteUserStart,
+   deleteUserSuccess,
+   deleteUserFailure
 } from '../redux/user/userSlice.js'
 
 export default function ProfilePage() {
@@ -81,7 +84,21 @@ export default function ProfilePage() {
    }
 
    async function handleDeleteUser() {
+      try {
+         dispatch(deleteUserStart());
+         const res = await fetch(`/api/v1.0/user/delete-user/${currentUser._id}`, {
+            method: 'DELETE',
+         });
+         const data = await res.json();
+         if (data.success === false) {
+            dispatch(deleteUserFailure(data.message));
+            return;
+         }
+         dispatch(deleteUserSuccess(data));
 
+      } catch (err) {
+         dispatch(deleteUserFailure(err.message));
+      }
    }
 
    async function handleSignOut() {
