@@ -1,12 +1,17 @@
-import {useRef, useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
    getDownloadURL,
    getStorage,
    ref,
    uploadBytesResumable,
 } from 'firebase/storage';
-import { app } from '../firebase';
+import {app} from '../firebase';
+import {
+   updateUserStart,
+   updateUserSuccess,
+   updateUserFailure
+} from '../redux/user/userSlice.js'
 
 export default function ProfilePage() {
    const fileRef = useRef(null);
@@ -18,6 +23,12 @@ export default function ProfilePage() {
 
    const {currentUser, loading, error} = useSelector((state) => state.user);
    const dispatch = useDispatch();
+
+   useEffect(() => {
+      if (image) {
+         handleFileUpload(image);
+      }
+   }, [image]);
 
    async function handleFileUpload(image) {
       const storage = getStorage(app);
@@ -38,11 +49,35 @@ export default function ProfilePage() {
    }
 
    function handleChange(e) {
-
+      setFormData({...formData, [e.target.id]: e.target.value});
    }
 
    async function handleSubmit(e) {
+      e.preventDefault();
+      try {
+         dispatch(updateUserStart());
+         const res = await fetch(`/api/v1.0/user/update-user/${currentUser._id}`, {
+            method: 'PUT', headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+         });
 
+         const data = await res.json();
+         if (data.success === false) {
+            dispatch(updateUserFailure(data.message));
+            return;
+         }
+
+         dispatch(updateUserSuccess(data));
+         setUpdateSuccess(true);
+         setTimeout(() => {
+            setUpdateSuccess(false)
+         }, 5000);
+
+      } catch (err) {
+         dispatch(updateUserFailure(err.message));
+      }
    }
 
    async function handleDeleteUser() {
@@ -52,12 +87,6 @@ export default function ProfilePage() {
    async function handleSignOut() {
 
    }
-
-   useEffect(() => {
-      if (image) {
-         handleFileUpload(image);
-      }
-   }, [image]);
 
    return (
       <div className='p-3 max-w-lg mx-auto'>
@@ -84,13 +113,13 @@ export default function ProfilePage() {
             />
             <p className='text-sm self-center'>
                {imageError ? (
-                  <span className='text-red-700'>
+                  <span className='text-red-700 font-bold tracking-wide'>
               Error uploading image (file size must be less than 2 MB)
             </span>
                ) : imagePercent > 0 && imagePercent < 100 ? (
-                  <span className='text-slate-700'>{`Uploading: ${imagePercent} %`}</span>
+                  <span className='text-slate-700 font-bold tracking-wide'>{`Uploading: ${imagePercent} %`}</span>
                ) : imagePercent === 100 ? (
-                  <span className='text-green-700'>Image uploaded successfully</span>
+                  <span className='text-green-700 font-bold tracking-wide'>Image uploaded successfully</span>
                ) : (
                   ''
                )}
@@ -118,26 +147,26 @@ export default function ProfilePage() {
                className='bg-slate-100 rounded-lg p-3'
                onChange={handleChange}
             />
-            <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+            <button className='bg-slate-700 text-white tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
                {loading ? 'Loading...' : 'Update Profile'}
             </button>
          </form>
          <div className='flex justify-between mt-5'>
             <span
                onClick={handleDeleteUser}
-               className='text-red-700 font-bold cursor-pointer'
+               className='text-red-700 tracking-wide font-bold cursor-pointer'
             >
                Delete Account
             </span>
             <span onClick={handleSignOut}
-                  className='text-yellow-600 font-bold cursor-pointer'
+                  className='text-blue-500 tracking-wide font-bold cursor-pointer'
             >
                Sign out
             </span>
          </div>
-         <p className='text-red-700 mt-5'>{error ? error.message || 'Internal Server Error!' : ''}</p>
-         <p className='text-green-700 mt-5'>
-            {/*{updateSuccess && 'User is updated successfully!'}*/}
+         <p className='text-red-700 tracking-wide font-bold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
+         <p className='text-green-700 tracking-wide font-bold mt-5'>
+            {updateSuccess && 'User updated successfully!'}
          </p>
       </div>
    )

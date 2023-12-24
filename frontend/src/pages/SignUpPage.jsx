@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import OAuth from "../components/OAuth.jsx";
+import OAuthButton from "../components/OAuthButton.jsx";
 
 export default function SignUpPage() {
    const [formData, setFormData] = useState({});
@@ -84,12 +84,12 @@ export default function SignUpPage() {
             >
                {loading ? 'Loading...' : 'Sign Up'}
             </button>
-            <OAuth />
+            <OAuthButton />
          </form>
          <div className='flex gap-2 mt-5'>
             <p>Have an account?</p>
             <Link to='/sign-in'>
-               <span className='text-blue-500'>Sign in</span>
+               <span className='text-blue-500 font-bold'>Sign in</span>
             </Link>
          </div>
          <p className='text-red-700 mt-5'>{error && 'Internal Server Error!'}</p>

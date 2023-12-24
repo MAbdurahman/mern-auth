@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice.js";
 import {useDispatch, useSelector} from 'react-redux';
-import OAuth from "../components/OAuth.jsx";
+import OAuthButton from "../components/OAuthButton.jsx";
 
 export default function SignInPage() {
    const [formData, setFormData] = useState({});
@@ -70,12 +70,12 @@ export default function SignInPage() {
             >
                {loading ? 'Loading...' : 'Sign In'}
             </button>
-            <OAuth />
+            <OAuthButton />
          </form>
          <div className='flex gap-2 mt-5'>
             <p>Do not have an account?</p>
             <Link to='/sign-up'>
-               <span className='text-blue-500'>Sign up</span>
+               <span className='text-blue-500 font-bold'>Sign up</span>
             </Link>
          </div>
          <p className='text-red-700 mt-5'>{error ? error.message || 'Internal Server Error!' : ''}</p>

@@ -1,13 +1,12 @@
 
-
 import jwt from 'jsonwebtoken';
 import { errorHandler } from './errorHandler.js';
 
 /**
- * @description -
+ * @description - authenticates the user base on json web token
  * @param req - the request
  * @param res - the response
- * @param next - callback function
+ * @param next - callback function, the next middleware
  * @returns {*}
  */
 export const authenticateToken = (req, res, next) => {
@@ -25,6 +24,5 @@ export const authenticateToken = (req, res, next) => {
       req.user = user;
       next();
    });
-
 
 }
