@@ -13,7 +13,10 @@ import {
    updateUserFailure,
    deleteUserStart,
    deleteUserSuccess,
-   deleteUserFailure
+   deleteUserFailure,
+   signOutUserStart,
+   signOutUserSuccess,
+   signOutUserFailure
 } from '../redux/user/userSlice.js'
 
 export default function ProfilePage() {
@@ -102,7 +105,18 @@ export default function ProfilePage() {
    }
 
    async function handleSignOut() {
-
+      try {
+         dispatch(signOutUserStart());
+         const res = await fetch('/api/v1.0/auth/sign-out');
+         const data = await res.json();
+         if (data.success === false) {
+            dispatch(signOutUserFailure(data.message));
+            return;
+         }
+         dispatch(signOutUserSuccess(data));
+      } catch (err) {
+         dispatch(signOutUserFailure(err.message));
+      }
    }
 
    return (
