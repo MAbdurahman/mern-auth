@@ -1,5 +1,5 @@
 export default function HomePage() {
    return (
-      <><h2>HomePage</h2></>
+      <div className="bg-indigo-600 w-full h-screen"></div>
    )
 }
