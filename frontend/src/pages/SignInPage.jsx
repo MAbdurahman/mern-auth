@@ -48,7 +48,7 @@ export default function SignInPage() {
    }
 
    return (
-      <div className='p-3 max-w-lg mx-auto'>
+      <div className='p-3 m-16 max-w-lg mx-auto'>
          <h2 className='text-3xl text-center font-semibold my-7 font-worksans'>Sign In</h2>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4 font-worksans'>
             <input
