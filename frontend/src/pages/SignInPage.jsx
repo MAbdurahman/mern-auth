@@ -49,14 +49,14 @@ export default function SignInPage() {
 
    return (
       <div className='p-3 max-w-lg mx-auto'>
-         <h2 className='text-3xl text-center font-semibold my-7'>Sign In</h2>
-         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+         <h2 className='text-3xl text-center font-semibold my-7 font-worksans'>Sign In</h2>
+         <form onSubmit={handleSubmit} className='flex flex-col gap-4 font-worksans'>
             <input
                type='email'
                placeholder='Email'
                id='email'
                autoComplete="off"
-               className='bg-slate-100 p-3 rounded-lg'
+               className='bg-slate-100 p-3 rounded-lg font-worksans'
                onChange={handleChange}
             />
             <input
@@ -64,25 +64,25 @@ export default function SignInPage() {
                placeholder='Password'
                id='password'
                autoComplete="off"
-               className='bg-slate-100 p-3 rounded-lg'
+               className='bg-slate-100 p-3 rounded-lg font-worksans'
                onChange={handleChange}
             />
             <button
                type='submit'
                disabled={loading}
-               className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+               className='bg-slate-700 text-white font-worksans font-semibold p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
             >
                {loading ? 'Loading...' : 'Sign In'}
             </button>
             <OAuthButton />
          </form>
-         <div className='flex gap-2 mt-5'>
+         <div className='flex gap-2 font-worksans font-semibold mt-5'>
             <p>Do not have an account?</p>
             <Link to='/sign-up'>
-               <span className='text-blue-500 font-bold'>Sign up</span>
+               <span className='text-blue-500 font-worksans font-semibold'>Sign Up</span>
             </Link>
          </div>
-         <p className='text-red-700 mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
+         <p className='text-red-700 font-worksans font-semibold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
       </div>
    );
 }

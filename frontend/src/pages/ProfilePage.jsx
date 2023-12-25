@@ -121,7 +121,7 @@ export default function ProfilePage() {
 
    return (
       <div className='p-3 max-w-lg mx-auto'>
-         <h2 className='text-3xl font-semibold text-center my-7'>{currentUser.username} Profile</h2>
+         <h2 className='text-3xl font-semibold font-worksans text-center my-7'>{currentUser.username} Profile</h2>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <input
                type='file'
@@ -160,7 +160,7 @@ export default function ProfilePage() {
                type='text'
                id='username'
                placeholder='Username'
-               className='bg-slate-100 rounded-lg p-3'
+               className='bg-slate-100 rounded-lg p-3 font-worksans'
                onChange={handleChange}
             />
             <input
@@ -168,35 +168,35 @@ export default function ProfilePage() {
                type='email'
                id='email'
                placeholder='Email'
-               className='bg-slate-100 rounded-lg p-3'
+               className='bg-slate-100 rounded-lg p-3 font-worksans'
                onChange={handleChange}
             />
             <input
                type='password'
                id='password'
                placeholder='Password'
-               className='bg-slate-100 rounded-lg p-3'
+               className='bg-slate-100 rounded-lg p-3 font-worksans'
                onChange={handleChange}
             />
-            <button className='bg-slate-700 text-white tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+            <button className='bg-slate-700 text-white font-worksans font-semibold tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
                {loading ? 'Loading...' : 'Update Profile'}
             </button>
          </form>
          <div className='flex justify-between mt-5'>
             <span
                onClick={handleDeleteUser}
-               className='text-red-700 tracking-wide font-bold cursor-pointer'
+               className='text-red-700 tracking-wide font-worksans font-semibold cursor-pointer'
             >
                Delete Account
             </span>
             <span onClick={handleSignOut}
-                  className='text-blue-500 tracking-wide font-bold cursor-pointer'
+                  className='text-blue-500 tracking-wide font-worksans font-semibold cursor-pointer'
             >
-               Sign out
+               Sign Out
             </span>
          </div>
-         <p className='text-red-700 tracking-wide font-bold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
-         <p className='text-green-700 tracking-wide font-bold mt-5'>
+         <p className='text-red-700 tracking-wide font-worksans font-bold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
+         <p className='text-green-700 tracking-wide font-worksans font-bold mt-5'>
             {updateSuccess && 'User updated successfully!'}
          </p>
       </div>
