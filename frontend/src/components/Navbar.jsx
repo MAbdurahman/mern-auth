@@ -37,7 +37,7 @@ export default function Navbar() {
                </Link>
                <Link to='/profile' className='text-gray-800 hover:text-gray-400 duration-500'>
                   {currentUser ? (
-                     <img onClick={handleClick} src={currentUser.profilePicture} alt='profile' className='h-7 w-7 rounded-full object-cover'/>
+                     <img onClick={handleClick}  src={currentUser.profilePicture} alt='profile' className='md:ml-8 h-8 w-8 rounded-full object-cover'/>
                   ) : (
                      <li onClick={handleClick} className='md:ml-8 text-xl md:my-0 my-7 text-gray-900 font-worksans font-semibold hover:text-gray-400 duration-500'>Sign In</li>
                   )}

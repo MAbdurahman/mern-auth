@@ -120,7 +120,7 @@ export default function ProfilePage() {
    }
 
    return (
-      <div className='p-3 max-w-lg mx-auto'>
+      <div className='p-3 pt-20 max-w-lg mx-auto'>
          <h2 className='text-3xl font-semibold font-worksans text-center my-7'>{currentUser.username} Profile</h2>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <input
@@ -178,7 +178,7 @@ export default function ProfilePage() {
                className='bg-slate-100 rounded-lg p-3 font-worksans'
                onChange={handleChange}
             />
-            <button className='bg-slate-700 text-white font-worksans font-semibold tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+            <button className='bg-logo-blue text-white font-worksans font-semibold tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
                {loading ? 'Loading...' : 'Update Profile'}
             </button>
          </form>

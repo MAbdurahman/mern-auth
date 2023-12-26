@@ -10,7 +10,7 @@ export default function NotFoundPage() {
    return (
       <div className='flex flex-col justify-center mt-32 px-4 py-12 max-w-2xl mx-auto '>
          <div className="flex flex-col justify-center text-center mb-8">
-            <h2 className="font-worksans font-bold text-blue-950 text-9xl">404</h2>
+            <h2 className="font-worksans font-bold text-logo-blue text-9xl">404</h2>
             <p className="text-4xl font-worksans font-semibold">
                Page Not Found
             </p>
