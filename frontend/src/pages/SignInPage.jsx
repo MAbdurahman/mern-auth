@@ -49,7 +49,7 @@ export default function SignInPage() {
 
    return (
       <div className='p-3 m-16 max-w-lg mx-auto'>
-         <h2 className='text-3xl text-center font-semibold my-7 font-worksans'>Sign In</h2>
+         <h2 className='text-2xl text-center uppercase font-semibold my-7 font-worksans'>Sign In</h2>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4 font-worksans'>
             <input
                type='email'
@@ -70,7 +70,7 @@ export default function SignInPage() {
             <button
                type='submit'
                disabled={loading}
-               className='bg-slate-700 text-white font-worksans font-semibold p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+               className='bg-logo-blue text-white font-worksans font-semibold p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
             >
                {loading ? 'Loading...' : 'Sign In'}
             </button>
@@ -79,7 +79,7 @@ export default function SignInPage() {
          <div className='flex gap-2 font-worksans font-semibold mt-5'>
             <p>Do not have an account?</p>
             <Link to='/sign-up'>
-               <span className='text-blue-500 font-worksans font-semibold'>Sign Up</span>
+               <span className='text-logo-blue font-worksans font-semibold'>Sign Up</span>
             </Link>
          </div>
          <p className='text-red-700 font-worksans font-semibold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>

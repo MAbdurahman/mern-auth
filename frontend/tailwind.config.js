@@ -9,7 +9,10 @@ export default {
       fontFamily: {
         merriweather: ['Merriweather', 'serif'],
         worksans: ['Work Sans', 'sans-serif']
-      }
+      },
+      colors: {
+        'logo-blue': '#2166AB',
+      },
     },
   },
   plugins: [],

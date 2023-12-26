@@ -51,7 +51,7 @@ export default function SignUpPage() {
 
    return (
       <div className='p-3 m-16 max-w-lg mx-auto'>
-         <h1 className='text-3xl text-center font-worksans font-semibold my-7'>Sign Up</h1>
+         <h1 className='text-2xl text-center uppercase font-worksans font-semibold my-7'>Sign Up</h1>
          <form onSubmit={handleSubmit} className='flex flex-col gap-4 font-worksans'>
             <input
                type='text'
@@ -80,16 +80,16 @@ export default function SignUpPage() {
             <button
                type='submit'
                disabled={loading}
-               className='bg-slate-700 text-white p-3 font-semibold font-worksans rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+               className='bg-logo-blue text-white p-3 font-semibold font-worksans rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
             >
                {loading ? 'Loading...' : 'Sign Up'}
             </button>
             <OAuthButton />
          </form>
          <div className='flex gap-2 mt-5 font-worksans font-semibold'>
-            <p>Have an account?</p>
+            <p>Already have an account?</p>
             <Link to='/sign-in'>
-               <span className='text-blue-500 font-worksans font-semibold'>Sign In</span>
+               <span className='text-logo-blue font-worksans font-semibold'>Sign In</span>
             </Link>
          </div>
          <p className='text-red-700 mt-5 font-worksans font-semibold'>{error ? error || 'Internal Server Error!' : ''}</p>

@@ -39,7 +39,7 @@ export default function Navbar() {
                   {currentUser ? (
                      <img onClick={handleClick} src={currentUser.profilePicture} alt='profile' className='h-7 w-7 rounded-full object-cover'/>
                   ) : (
-                     <li onClick={handleClick} className='md:ml-8 text-xl md:my-0 my-7 text-gray-900  font-worksans font-semibold hover:text-gray-400 duration-500'>Sign In</li>
+                     <li onClick={handleClick} className='md:ml-8 text-xl md:my-0 my-7 text-gray-900 font-worksans font-semibold hover:text-gray-400 duration-500'>Sign In</li>
                   )}
                </Link>
             </ul>

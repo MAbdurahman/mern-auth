@@ -1,5 +1,5 @@
 export default function HomePage() {
    return (
-      <div className="bg-indigo-600 w-full h-screen"></div>
+      <div className="bg-slate-600 w-full h-screen"></div>
    )
 }
