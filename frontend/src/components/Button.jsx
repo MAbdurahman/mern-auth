@@ -10,7 +10,7 @@ export default function Button({children}) {
 
    return (
       <button onClick={handleClick}
-              className='py-4 px-8 bg-white hover:bg-gray-400 rounded-md border-none uppercase font-bold text-lg text-logo-blue cursor-pointer'>
+                   className='py-4 px-8 bg-white hover:bg-logo-1 rounded-md border-none uppercase font-bold text-lg text-logo-blue cursor-pointer'>
          {children}
       </button>
    )

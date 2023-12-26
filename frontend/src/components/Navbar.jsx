@@ -9,11 +9,12 @@ export default function Navbar() {
    function handleClick() {
       setOpen(!open);
    }
+
    return (
-      <div className='bg-slate-200 shadow-md fixed z-20 w-full top-0 left-0'>
+      <div className='bg-gray-300 shadow-md fixed z-20 w-full top-0 left-0'>
          {/*<div className='flex justify-between items-center max-w-6xl mx-auto p-3'>*/}
 
-         <div className='md:flex items-center justify-between bg-slate-200 py-4 max-w-6xl mx-auto md:px-10 px-7'>
+         <div className='md:flex items-center justify-between bg-gray-300 py-4 max-w-6xl mx-auto md:px-10 px-7'>
             {/*<Link to='/'>
                <h1 className='font-bold font-worksans text-lg'>Auth App</h1>
             </Link>*/}
@@ -26,7 +27,7 @@ export default function Navbar() {
                <ion-icon name={open ? 'close' : 'menu'}></ion-icon>
             </div>
             {/*<ul className='flex gap-4 font-semibold font-worksans uppercase tracking-wide'>*/}
-            <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-slate-200 md:z-auto z-[-1] left-0 
+            <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-gray-300 md:z-auto z-[-1] left-0 
                w-full md:w-auto md:pl-0 pl-9 transition-all duration-300 ease-in ${open ? 'top-20 ' : 'top-[-490px]'}`}>
                <Link to='/' className='text-gray-800 hover:text-gray-400 duration-500'>
                   <li onClick={handleClick} className='md:ml-8 text-xl md:my-0 my-7 text-gray-900 font-worksans font-semibold hover:text-gray-400 duration-500'>Home</li>

@@ -12,6 +12,11 @@ export default {
       },
       colors: {
         'logo-blue': '#2166AB',
+        'logo-blue-4': '#2166AB',
+        'logo-blue-3': '#2980D6',
+        'logo-blue-2': '#5499DE',
+        'logo-blue-1': '#7FB2E6',
+        'logo-blue-0': '#A9CCEE'
       },
     },
   },
