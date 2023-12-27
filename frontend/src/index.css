@@ -4,7 +4,7 @@
 html,
 body {
    height: 100vh;
-   overflow: hidden;
+   overflow-x: hidden;
    @apply bg-gray-200;
 }
 
