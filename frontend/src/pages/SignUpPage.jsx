@@ -27,7 +27,6 @@ export default function SignUpPage() {
             body: JSON.stringify(formData),
          });
          const data = await res.json();
-         console.log(data)
 
          setLoading(false);
          if (data.success === false) {
