@@ -1,6 +1,6 @@
-import bcryptjs from "bcryptjs";
+import bcryptjs from 'bcryptjs';
 import User from '../models/userModel.js';
-import {errorHandler} from "../utils/errorHandler.js";
+import {errorHandler} from '../utils/errorHandler.js';
 
 export const test = (req, res) => {
    res.json({
@@ -12,11 +12,11 @@ export const updateUser = async (req, res, next) => {
    if (req.user.id !== req.params.id) {
       return next(errorHandler('401', 'User Authorization Denied!'));
    }
-   const { email, username } = req.body;
+   const {email, username} = req.body;
 
-   const existingEmail = await User.findOne({email });
+   const existingEmail = await User.findOne({email});
    if (existingEmail) {
-      return  next(errorHandler(400, 'Email already exists!'));
+      return next(errorHandler(400, 'Email already exists!'));
    }
 
    const existingUserName = await User.findOne({username});
@@ -41,7 +41,8 @@ export const updateUser = async (req, res, next) => {
       const {password, ...rest} = updatedUser._doc;
       res.status(200).json(rest);
 
-   } catch (err) {
+   }
+   catch (err) {
       next(err);
    }
 }
@@ -55,7 +56,8 @@ export const deleteUser = async (req, res, next) => {
       res.clearCookie('access_token');
       res.status(200).json('User Successfully Deleted!');
 
-   } catch (err) {
+   }
+   catch (err) {
       next(err)
    }
 

@@ -1,64 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-   currentUser: null,
-   loading: false,
-   error: false,
+   currentUser: null, loading: false, error: false,
 };
 
 const userSlice = createSlice({
-   name: 'user',
-   initialState,
-   reducers: {
+   name: 'user', initialState, reducers: {
       signInStart: (state) => {
          state.loading = true;
-      },
-      signInSuccess: (state, action) => {
+      }, signInSuccess: (state, action) => {
          state.currentUser = action.payload;
          state.loading = false;
          state.error = false;
-      },
-      signInFailure: (state, action) => {
+      }, signInFailure: (state, action) => {
          state.loading = false;
          state.error = action.payload;
-      },
-      updateUserStart: (state) => {
+      }, updateUserStart: (state) => {
          state.loading = true;
-      },
-      updateUserSuccess: (state, action) => {
+      }, updateUserSuccess: (state, action) => {
          state.currentUser = action.payload;
          state.loading = false;
          state.error = null;
-      },
-      updateUserFailure: (state, action) => {
+      }, updateUserFailure: (state, action) => {
          state.error = action.payload;
          state.loading = false;
-      },
-      deleteUserStart: (state) => {
+      }, deleteUserStart: (state) => {
          state.loading = true;
-      },
-      deleteUserSuccess: (state) => {
+      }, deleteUserSuccess: (state) => {
          state.currentUser = null;
          state.loading = false;
          state.error = false;
-      },
-      deleteUserFailure: (state, action) => {
+      }, deleteUserFailure: (state, action) => {
          state.loading = false;
          state.error = action.payload;
-      },
-      signOutUserStart: (state) => {
+      }, signOutUserStart: (state) => {
          state.loading = true;
-      },
-      signOutUserSuccess: (state) => {
+      }, signOutUserSuccess: (state) => {
          state.currentUser = null;
          state.loading = false;
          state.error = null;
-      },
-      signOutUserFailure: (state, action) => {
+      }, signOutUserFailure: (state, action) => {
          state.error = action.payload;
          state.loading = false;
-      },
-      clearError: (state) => {
+      }, clearError: (state) => {
          state.currentUser = null;
          state.loading = false;
          state.error = null;

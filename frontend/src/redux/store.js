@@ -8,19 +8,16 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-   key: 'root',
-   version: 1,
-   storage,
+   key: 'root', version: 1, storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
    reducer: persistedReducer,
-   middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-         serializableCheck: false,
-      }),
+   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: false,
+   }),
 
 })
 

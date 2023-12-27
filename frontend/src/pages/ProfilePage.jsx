@@ -1,10 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useRef, useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
-   getDownloadURL,
-   getStorage,
-   ref,
-   uploadBytesResumable,
+   getDownloadURL, getStorage, ref, uploadBytesResumable,
 } from 'firebase/storage';
 import {app} from '../firebase';
 import {
@@ -65,8 +62,7 @@ export default function ProfilePage() {
          const res = await fetch(`/api/v1.0/user/update-user/${currentUser._id}`, {
             method: 'PUT', headers: {
                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
+            }, body: JSON.stringify(formData),
          });
 
          const data = await res.json();
@@ -81,7 +77,8 @@ export default function ProfilePage() {
             setUpdateSuccess(false)
          }, 5000);
 
-      } catch (err) {
+      }
+      catch (err) {
          dispatch(updateUserFailure(err.message));
       }
    }
@@ -99,7 +96,8 @@ export default function ProfilePage() {
          }
          dispatch(deleteUserSuccess(data));
 
-      } catch (err) {
+      }
+      catch (err) {
          dispatch(deleteUserFailure(err.message));
       }
    }
@@ -114,20 +112,21 @@ export default function ProfilePage() {
             return;
          }
          dispatch(signOutUserSuccess(data));
-      } catch (err) {
+      }
+      catch (err) {
          dispatch(signOutUserFailure(err.message));
       }
    }
 
-   return (
-      <div className='p-3 pt-20 max-w-lg mx-auto'>
-         <h2 className='text-3xl font-semibold font-worksans text-center my-7'>{currentUser.username} Profile</h2>
-         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+   return (<div className="p-3 pt-20 max-w-lg mx-auto">
+         <h2
+            className="text-3xl font-semibold font-worksans text-center my-7">{currentUser.username} Profile</h2>
+         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
-               type='file'
+               type="file"
                ref={fileRef}
                hidden
-               accept='image/*'
+               accept="image/*"
                onChange={(e) => setImage(e.target.files[0])}
             />
             {/*
@@ -138,67 +137,61 @@ export default function ProfilePage() {
             request.resource.contentType.matches('image/.*') */}
             <img
                src={formData.profilePicture || currentUser.profilePicture}
-               alt='profile'
-               className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
+               alt="profile"
+               className="h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2"
                onClick={() => fileRef.current.click()}
             />
-            <p className='text-sm self-center'>
-               {imageError ? (
-                  <span className='text-red-700 font-bold tracking-wide'>
+            <p className="text-sm self-center">
+               {imageError ? (<span className="text-red-700 font-bold tracking-wide">
               Error uploading image (file size must be less than 2 MB)
-            </span>
-               ) : imagePercent > 0 && imagePercent < 100 ? (
-                  <span className='text-slate-700 font-bold tracking-wide'>{`Uploading: ${imagePercent} %`}</span>
-               ) : imagePercent === 100 ? (
-                  <span className='text-green-700 font-bold tracking-wide'>Image uploaded successfully</span>
-               ) : (
-                  ''
-               )}
+            </span>) : imagePercent > 0 && imagePercent < 100 ? (<span
+                     className="text-slate-700 font-bold tracking-wide">{`Uploading: ${imagePercent} %`}</span>) : imagePercent === 100 ? (
+                  <span className="text-green-700 font-bold tracking-wide">Image uploaded successfully</span>) : ('')}
             </p>
             <input
                defaultValue={currentUser.username}
-               type='text'
-               id='username'
-               placeholder='Username'
-               className='bg-slate-100 rounded-lg p-3 font-worksans'
+               type="text"
+               id="username"
+               placeholder="Username"
+               className="bg-slate-100 rounded-lg p-3 font-worksans"
                onChange={handleChange}
             />
             <input
                defaultValue={currentUser.email}
-               type='email'
-               id='email'
-               placeholder='Email'
-               className='bg-slate-100 rounded-lg p-3 font-worksans'
+               type="email"
+               id="email"
+               placeholder="Email"
+               className="bg-slate-100 rounded-lg p-3 font-worksans"
                onChange={handleChange}
             />
             <input
-               type='password'
-               id='password'
-               placeholder='Password'
-               className='bg-slate-100 rounded-lg p-3 font-worksans'
+               type="password"
+               id="password"
+               placeholder="Password"
+               className="bg-slate-100 rounded-lg p-3 font-worksans"
                onChange={handleChange}
             />
-            <button className='bg-logo-blue text-white font-worksans font-semibold tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+            <button
+               className="bg-logo-blue text-white font-worksans font-semibold tracking-wide p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
                {loading ? 'Loading...' : 'Update Profile'}
             </button>
          </form>
-         <div className='flex justify-between mt-5'>
+         <div className="flex justify-between mt-5">
             <span
                onClick={handleDeleteUser}
-               className='text-red-700 tracking-wide font-worksans font-semibold cursor-pointer'
+               className="text-red-700 tracking-wide font-worksans font-semibold cursor-pointer"
             >
                Delete Account
             </span>
             <span onClick={handleSignOut}
-                  className='text-blue-500 tracking-wide font-worksans font-semibold cursor-pointer'
+                  className="text-logo-blue tracking-wide font-worksans font-semibold cursor-pointer"
             >
                Sign Out
             </span>
          </div>
-         <p className='text-red-700 tracking-wide font-worksans font-bold mt-5'>{error ? error || 'Internal Server Error!' : ''}</p>
-         <p className='text-green-700 tracking-wide font-worksans font-bold mt-5'>
+         <p className="text-red-700 tracking-wide font-worksans font-bold mt-5">{error ? error || 'Internal Server Error!' : ''}</p>
+         <p className="text-green-700 tracking-wide font-worksans font-bold mt-5">
             {updateSuccess && 'User updated successfully!'}
          </p>
-      </div>
-   )
+      </div>)
 }

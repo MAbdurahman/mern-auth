@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
 export default function Button({children}) {
    const navigate = useNavigate();
@@ -8,10 +8,8 @@ export default function Button({children}) {
       navigate('/profile');
    }
 
-   return (
-      <button onClick={handleClick}
-                   className='bg-gray-200 hover:bg-gray-300 py-4 px-8 rounded-md border-none uppercase font-bold text-lg text-logo-blue cursor-pointer'>
+   return (<button onClick={handleClick}
+                   className="bg-gray-200 hover:bg-gray-300 py-4 px-8 rounded-md border-none uppercase font-bold text-lg text-logo-blue cursor-pointer">
          {children}
-      </button>
-   )
+      </button>)
 }
