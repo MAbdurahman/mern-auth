@@ -44,8 +44,13 @@ const server = app.listen(PORT, () => {
 
 //**************** routes****************//
 
-app.get('/api/v1.0/', (req, res) => {
+/*app.get('/api/v1.0/', (req, res) => {
     res.send(Template());
+});*/
+app.get('/api/v1.0/', (req, res) => {
+    res.json({
+        message: 'API for mern-auth-app is working.'
+    });
 });
 
 app.use('/api/v1.0/user', userRoutes);
