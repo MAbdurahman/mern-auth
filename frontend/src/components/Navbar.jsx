@@ -1,10 +1,15 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {useState} from 'react';
 
 export default function Navbar() {
    const {currentUser} = useSelector((state) => state.user);
    const [open, setOpen] = useState(false);
+   const navigate = useNavigate();
+
+   function handleLogoClick() {
+      navigate('/')
+   }
 
    function handleClick() {
       setOpen(!open);
@@ -13,7 +18,7 @@ export default function Navbar() {
    return (<div className="bg-gray-300 shadow-md fixed z-20 w-full top-0 left-0">
          <div
             className="md:flex items-center justify-between bg-gray-300 py-4 max-w-6xl mx-auto md:px-10 px-7">
-            <div
+            <div onClick={handleLogoClick}
                className="font-bold text-2xl cursor-pointer flex items-center font-worksans text-gray-800">
                <img className="w-12"
                     src="https://res.cloudinary.com/mdbdrrhm/image/upload/v1703531559/logo_kmf4ea.png"

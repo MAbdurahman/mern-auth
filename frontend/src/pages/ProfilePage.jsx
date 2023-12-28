@@ -110,6 +110,7 @@ export default function ProfilePage() {
          if (data.success === false) {
             dispatch(signOutUserFailure(data.message));
             return;
+
          }
          dispatch(signOutUserSuccess(data));
       }

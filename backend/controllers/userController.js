@@ -12,17 +12,6 @@ export const updateUser = async (req, res, next) => {
    if (req.user.id !== req.params.id) {
       return next(errorHandler('401', 'User Authorization Denied!'));
    }
-   const {email, username} = req.body;
-
-   const existingEmail = await User.findOne({email});
-   if (existingEmail) {
-      return next(errorHandler(400, 'Email already exists!'));
-   }
-
-   const existingUserName = await User.findOne({username});
-   if (existingUserName) {
-      return next(errorHandler(400, 'Username already exists!'));
-   }
 
    try {
       if (req.body.password) {
