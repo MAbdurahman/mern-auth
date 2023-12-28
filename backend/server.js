@@ -44,7 +44,7 @@ const server = app.listen(PORT, () => {
 });
 
 } else {
-   console.log(`The server is listening at port - 5000`)
+   console.log(`The server is listening`)
 }
 
 //**************** routes****************//
