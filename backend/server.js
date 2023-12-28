@@ -38,9 +38,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 //**************** app listening ****************//
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
 const server = app.listen(PORT, () => {
    console.log(`The server is listening at - http://127.0.0.1:${PORT}${API_URL} in ${NODE_ENV} mode🔥`.yellow);
 });
+
+} else {
+   console.log(`The server is listening at port - ${PORT}`)
+}
 
 //**************** routes****************//
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
