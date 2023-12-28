@@ -2,7 +2,7 @@
 export default function Template() {
 
     // language=HTML
-    return `<!doctype html>
+    return (`<!doctype html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -149,5 +149,5 @@ export default function Template() {
         </section>
     </div>
     </body>
-    </html>`
+    </html>`)
 }
