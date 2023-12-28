@@ -21,6 +21,11 @@ const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 const API_URL = process.env.API_ENV || "/api/v1.0/";
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+})
 //**************** connect to database ****************//
 connectDatabase();
 
@@ -28,6 +33,7 @@ connectDatabase();
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
     app.use(morgan('dev'));
 }
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -37,6 +43,7 @@ const server = app.listen(PORT, () => {
 });
 
 //**************** routes****************//
+
 app.get('/api/v1.0/', (req, res) => {
     res.send(Template());
 });

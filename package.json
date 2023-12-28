@@ -11,7 +11,8 @@
     "start": "node backend/server.js",
     "server": "SET NODE_ENV=DEVELOPMENT& nodemon backend/server",
     "client": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "nodemonConfig": {
     "delay": 2000
