@@ -13,7 +13,8 @@ import {
    deleteUserFailure,
    signOutUserStart,
    signOutUserSuccess,
-   signOutUserFailure
+   signOutUserFailure,
+   clearError
 } from '../redux/user/userSlice.js'
 
 export default function ProfilePage() {
@@ -76,7 +77,6 @@ export default function ProfilePage() {
          setTimeout(() => {
             setUpdateSuccess(false)
          }, 5000);
-
       }
       catch (err) {
          dispatch(updateUserFailure(err.message));
@@ -101,7 +101,6 @@ export default function ProfilePage() {
          dispatch(deleteUserFailure(err.message));
       }
    }
-
    async function handleSignOut() {
       try {
          dispatch(signOutUserStart());
