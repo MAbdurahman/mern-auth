@@ -47,7 +47,9 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
    });
 
 } else {
-   console.log(`The server is listening`)
+   const server = app.listen(PORT, () => {
+      console.log(`The server is listening at - ${PORT}${API_URL} in ${NODE_ENV} mode🔥`.yellow);
+   });
 }
 
 //**************** routes****************//
