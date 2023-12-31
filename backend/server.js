@@ -21,14 +21,6 @@ const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 const API_URL = process.env.API_ENV || '/api/v1.0/';
 
-if (process.env.NODE_ENV === 'PRODUCTION') {
-   const __dirname = path.resolve();
-   app.use(express.static(path.join(__dirname, '/frontend/dist')));
-   app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
-   })
-}
-
 //**************** connect to database ****************//
 connectDatabase();
 
@@ -61,6 +53,13 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 app.use('/api/v1.0/user', userRoutes);
 app.use('/api/v1.0/auth', authRoutes);
 
+if (process.env.NODE_ENV === 'PRODUCTION') {
+   const __dirname = path.resolve();
+   app.use(express.static(path.join(__dirname, '/frontend/dist')));
+   app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+   })
+}
 //**************** handle errors middleware ****************//
 app.use((err, req, res, next) => {
    const statusCode = err.statusCode || 500;
